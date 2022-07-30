@@ -33,8 +33,8 @@ const run = async (client: Client, interaction: Discord.ChatInputCommandInteract
     const xEmbed = new Discord.EmbedBuilder()
         .setColor(config.colors.green)
         .setAuthor({
-            name: `Suggestion from ${interaction.user.tag}`,
-            iconURL: interaction.guild?.iconURL() as string
+            name: `Approved Suggestion | ${interaction.user.tag}`,
+            iconURL: `https://i.imgur.com/L0mPlDU.png`
         })
         .setThumbnail((sEmbed.thumbnail as Discord.EmbedAssetData).url)
         .setTitle(sEmbed.title as string)
@@ -46,8 +46,16 @@ const run = async (client: Client, interaction: Discord.ChatInputCommandInteract
         .setTimestamp()
         .setFooter({ text: config.footer });
 
+    const replyEmbed = new Discord.EmbedBuilder()
+        .setColor(config.colors.green)
+        .setAuthor({ name: `${message.author.tag}`, iconURL: message.author.avatarURL() as string })
+        .setTitle(`Approved Suggestion`)
+        .setDescription(`That suggestion has been approved.\nYou can find it [here](${message.url})`)
+        .setTimestamp()
+        .setFooter({ text: config.footer, iconURL: interaction.guild?.iconURL() as string });
+
     await message.edit({ embeds: [xEmbed] });
-    await interaction.reply({ content: `That suggestion has been approved!` });
+    await interaction.reply({ embeds: [replyEmbed] });
 };
 
 export {

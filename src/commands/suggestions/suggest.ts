@@ -17,10 +17,10 @@ const run = async (client: Client, interaction: Discord.ChatInputCommandInteract
     const desc = discord(interaction.options.getString(`description`, true));
 
     const sEmbed = new Discord.EmbedBuilder()
-        .setColor(config.colors.atlas)
+        .setColor(config.colors.blue)
         .setAuthor({
-            name: `Suggestion from ${interaction.user.tag}`,
-            iconURL: interaction.guild?.iconURL() as string
+            name: `New Suggestion | ${interaction.user.tag}`,
+            iconURL: `https://i.imgur.com/jo75PLA.png`
         })
         .setThumbnail(interaction.user.avatarURL())
         .setTitle(title)

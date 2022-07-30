@@ -33,8 +33,8 @@ const run = async (client: Client, interaction: Discord.ChatInputCommandInteract
     const xEmbed = new Discord.EmbedBuilder()
         .setColor(config.colors.red)
         .setAuthor({
-            name: `Suggestion from ${interaction.user.tag}`,
-            iconURL: interaction.guild?.iconURL() as string
+            name: `Rejected Suggestion | ${interaction.user.tag}`,
+            iconURL: `https://i.imgur.com/eXUPt9J.png`
         })
         .setThumbnail((sEmbed.thumbnail as Discord.EmbedAssetData).url)
         .setTitle(sEmbed.title as string)
@@ -46,8 +46,16 @@ const run = async (client: Client, interaction: Discord.ChatInputCommandInteract
         .setTimestamp()
         .setFooter({ text: config.footer });
 
+    const replyEmbed = new Discord.EmbedBuilder()
+        .setColor(config.colors.red)
+        .setAuthor({ name: `${message.author.tag}`, iconURL: message.author.avatarURL() as string })
+        .setTitle(`Rejected Suggestion`)
+        .setDescription(`That suggestion has been rejected.\nYou can find it [here](${message.url})`)
+        .setTimestamp()
+        .setFooter({ text: config.footer, iconURL: interaction.guild?.iconURL() as string });
+
     await message.edit({ embeds: [xEmbed] });
-    await interaction.reply({ content: `That suggestion has been rejected.` });
+    await interaction.reply({ embeds: [replyEmbed] });
 };
 
 export {

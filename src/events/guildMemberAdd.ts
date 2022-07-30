@@ -18,7 +18,7 @@ export default async (client: Client, member: Discord.GuildMember): Promise<void
         })
         .setThumbnail(member.user.avatarURL())
         .setTitle(`Welcome, ${member.user.username}!`)
-        .setDescription(`Welcome to AtlasMC, <@${member.user.id}>!\nWe are so happy to have you here!\n\nCheck out <#780365121716879367> for rules + information about our server!\nGo to <#784302059636785191> to select what pings you would like to be notified for.\nCommunicate and stay in touch with the community in <#977028662706716722>.\n\n**IP:** play.atlasmc.org\n**STORE:** [store.atlasmc.org](https://store.atlasmc.org)\n**WEBSITE:** [atlasmc.org](https://atlasmc.org)`)
+        .setDescription(`Welcome to AtlasMC, <@${member.user.id}>!\nWe are so happy to have you here!\n\nCheck out <#780365121716879367> for rules + information about our server!\nGo to <#784302059636785191> to select what you would like to be notified for.\nCommunicate and stay in touch with the community in <#977028662706716722>.\n\n**IP:** play.atlasmc.org\n**STORE:** [store.atlasmc.org](https://store.atlasmc.org)\n**WEBSITE:** [atlasmc.org](https://atlasmc.org)`)
         .setTimestamp()
         .setFooter({ text: config.footer });
 
