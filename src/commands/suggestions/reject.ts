@@ -14,7 +14,7 @@ const cmd: Omit<SlashCommandBuilder, `addSubcommand` | `addSubcommandGroup`> = n
 
 const run = async (client: Client, interaction: Discord.ChatInputCommandInteraction): Promise<void> => {
     const member = await (await client.guilds.fetch(interaction.guild?.id as string)).members.fetch(interaction.user.id);
-    if (member.roles.highest.name !== `OWNER` && member.roles.highest.name !== `DEVELOPER`) {
+    if (member.roles.highest.name !== `OWNER` && member.roles.highest.name !== `MANAGER` && member.roles.highest.name !== `DEVELOPER` && member.roles.highest.name !== `ADMIN`) {
         await interaction.reply({ content: `You are not permitted to use this!`, ephemeral: true });
         return;
     }

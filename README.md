@@ -1,1 +1,1 @@
-# atlasmcgenius
+# AtlasMC-Genius
