@@ -50,7 +50,7 @@ const run = async (client: Client, interaction: Discord.ChatInputCommandInteract
         .setColor(config.colors.red)
         .setAuthor({ name: `${message.author.tag}`, iconURL: message.author.avatarURL() as string })
         .setTitle(`Rejected Suggestion`)
-        .setDescription(`That suggestion has been rejected.\nYou can find it [here](${message.url})`)
+        .setDescription(`That suggestion has been rejected.\nYou can find it [here](${message.url}).`)
         .setTimestamp()
         .setFooter({ text: config.footer, iconURL: interaction.guild?.iconURL() as string });
 
