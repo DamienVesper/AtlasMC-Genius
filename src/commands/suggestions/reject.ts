@@ -25,6 +25,7 @@ const run = async (client: Client, interaction: Discord.ChatInputCommandInteract
     const message = await (await client.channels.fetch(config.channels.suggestions) as Discord.TextChannel).messages.fetch(messageID);
     const sEmbed = message.embeds[0];
 
+    const suggestor = ((sEmbed.author as Discord.EmbedAuthorData).name.split(`|`).pop() as string).slice(1);
     if (sEmbed.color === config.colors.red) {
         await interaction.reply({ content: `That suggestion has already been rejected!`, ephemeral: true });
         return;
@@ -33,7 +34,7 @@ const run = async (client: Client, interaction: Discord.ChatInputCommandInteract
     const xEmbed = new Discord.EmbedBuilder()
         .setColor(config.colors.red)
         .setAuthor({
-            name: `Rejected Suggestion | ${interaction.user.tag}`,
+            name: `Rejected Suggestion | ${suggestor}`,
             iconURL: `https://i.imgur.com/eXUPt9J.png`
         })
         .setThumbnail((sEmbed.thumbnail as Discord.EmbedAssetData).url)

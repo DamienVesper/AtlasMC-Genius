@@ -7,10 +7,10 @@ import { Client } from '../../typings/discord';
 import { discord } from '../../utils/cleanse';
 
 const cmd: Omit<SlashCommandBuilder, `addSubcommand` | `addSubcommandGroup`> = new SlashCommandBuilder()
-    .setName(`approve`)
-    .setDescription(`Approve a suggestion.`)
+    .setName(`limbo`)
+    .setDescription(`Put a suggestion in limbo.`)
     .addStringOption(option => option.setName(`id`).setDescription(`The message ID of the suggestion.`).setRequired(true))
-    .addStringOption(option => option.setName(`reason`).setDescription(`A brief reason for approval.`));
+    .addStringOption(option => option.setName(`reason`).setDescription(`A brief reason for putting the suggestion in limbo.`));
 
 const run = async (client: Client, interaction: Discord.ChatInputCommandInteraction): Promise<void> => {
     const member = await (await client.guilds.fetch(interaction.guild?.id as string)).members.fetch(interaction.user.id);
@@ -26,32 +26,33 @@ const run = async (client: Client, interaction: Discord.ChatInputCommandInteract
     const sEmbed = message.embeds[0];
 
     const suggestor = ((sEmbed.author as Discord.EmbedAuthorData).name.split(`|`).pop() as string).slice(1);
-    if (sEmbed.color === config.colors.green) {
-        await interaction.reply({ content: `That suggestion has already been approved!`, ephemeral: true });
+
+    if (sEmbed.color === config.colors.yellow) {
+        await interaction.reply({ content: `That suggestion has already been put into limbo!`, ephemeral: true });
         return;
     }
 
     const xEmbed = new Discord.EmbedBuilder()
-        .setColor(config.colors.green)
+        .setColor(config.colors.yellow)
         .setAuthor({
-            name: `Approved Suggestion | ${suggestor}`,
-            iconURL: `https://i.imgur.com/L0mPlDU.png`
+            name: `Suggestion in Limbo | ${suggestor}`,
+            iconURL: `https://cdn.discordapp.com/emojis/980387860811235338.webp`
         })
         .setThumbnail((sEmbed.thumbnail as Discord.EmbedAssetData).url)
         .setTitle(sEmbed.title as string)
         .setDescription(sEmbed.description as string)
         .addFields([{
-            name: `Approved by ${interaction.user.tag}`,
-            value: reason !== null ? discord(reason) : `This suggestion was approved for implementation.`
+            name: `Put in limbo by ${interaction.user.tag}`,
+            value: reason !== null ? discord(reason) : `This suggestion was put in limbo and is currently being looked into.`
         }])
         .setTimestamp()
         .setFooter({ text: config.footer });
 
     const replyEmbed = new Discord.EmbedBuilder()
-        .setColor(config.colors.green)
+        .setColor(config.colors.yellow)
         .setAuthor({ name: `${message.author.tag}`, iconURL: message.author.avatarURL() as string })
-        .setTitle(`Approved Suggestion`)
-        .setDescription(`That suggestion has been approved.\nYou can find it [here](${message.url}).`)
+        .setTitle(`Suggestion Put in Limbo`)
+        .setDescription(`That suggestion has been put in limbo.\nYou can find it [here](${message.url}).`)
         .setTimestamp()
         .setFooter({ text: config.footer, iconURL: interaction.guild?.iconURL() as string });
 
