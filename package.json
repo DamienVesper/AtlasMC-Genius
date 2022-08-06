@@ -24,17 +24,17 @@
   ],
   "license": "ISC",
   "dependencies": {
-    "@discordjs/builders": "^1.0.0",
-    "@discordjs/rest": "^1.0.0",
+    "@discordjs/builders": "^1.1.0",
+    "@discordjs/rest": "^1.0.1",
     "discord-api-types": "^0.36.3",
-    "discord.js": "^14.0.3"
+    "discord.js": "^14.1.2"
   },
   "devDependencies": {
-    "@types/node": "^18.0.6",
-    "@typescript-eslint/eslint-plugin": "^5.30.7",
-    "@typescript-eslint/parser": "^5.30.7",
+    "@types/node": "^18.6.4",
+    "@typescript-eslint/eslint-plugin": "^5.32.0",
+    "@typescript-eslint/parser": "^5.32.0",
     "dotenv": "^16.0.1",
-    "eslint": "^8.20.0",
+    "eslint": "^8.21.0",
     "eslint-config-standard-with-typescript": "^22.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.2.4",

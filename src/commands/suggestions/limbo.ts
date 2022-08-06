@@ -38,7 +38,7 @@ const run = async (client: Client, interaction: Discord.ChatInputCommandInteract
             name: `Suggestion in Limbo | ${suggestor}`,
             iconURL: `https://cdn.discordapp.com/emojis/980387860811235338.webp`
         })
-        .setThumbnail((sEmbed.thumbnail as Discord.EmbedAssetData).url)
+        .setThumbnail((sEmbed.thumbnail as Discord.EmbedAssetData)?.url)
         .setTitle(sEmbed.title as string)
         .setDescription(sEmbed.description as string)
         .addFields([{

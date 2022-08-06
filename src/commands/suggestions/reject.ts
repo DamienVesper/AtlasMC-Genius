@@ -37,7 +37,7 @@ const run = async (client: Client, interaction: Discord.ChatInputCommandInteract
             name: `Rejected Suggestion | ${suggestor}`,
             iconURL: `https://i.imgur.com/eXUPt9J.png`
         })
-        .setThumbnail((sEmbed.thumbnail as Discord.EmbedAssetData).url)
+        .setThumbnail((sEmbed.thumbnail as Discord.EmbedAssetData)?.url)
         .setTitle(sEmbed.title as string)
         .setDescription(sEmbed.description as string)
         .addFields([{
