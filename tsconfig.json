@@ -16,7 +16,7 @@
         "resolveJsonModule": true,
         "allowJs": true,
 
-        "outDir": "assets/img/dist"
+        "outDir": "dist"
     },
     "include": [
         "src/**/*.ts",
