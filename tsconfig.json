@@ -1,13 +1,27 @@
 {
     "compilerOptions": {
-        "target": "ES6",
-        "module": "commonjs",
-        "moduleResolution": "node",        
-        "outDir": "./dist",
-        "esModuleInterop": true,
-        "resolveJsonModule": true,
+        "lib": ["ESNext", "DOM"],
+        "module": "NodeNext",
+        "target": "ESNext",
+
+        "moduleResolution": "NodeNext",
+
+        "strict": true,
         "strictNullChecks": true,
-        "skipLibCheck": true
+        "alwaysStrict": true,
+        "skipLibCheck": true,
+
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "resolveJsonModule": true,
+        "allowJs": true,
+
+        "outDir": "assets/img/dist"
     },
-    "include": ["./src/**/*", "./config/**/*"]
+    "include": [
+        "src/**/*.ts",
+        "drizzle.config.ts",
+        "eslint.config.js"
+    ],
+    "exclude": ["node_modules"]
 }

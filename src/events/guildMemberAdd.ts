@@ -1,26 +1,37 @@
-import config from '../../config/config';
+import { EmbedBuilder, Events } from "discord.js";
 
-import * as Discord from 'discord.js';
+import { Event } from "../classes/Event.js";
+import { timestamp } from "../utils/utils.js";
 
-import { Client } from '../typings/discord';
+const EventType = Events.GuildMemberAdd;
 
-export default async (client: Client, member: Discord.GuildMember): Promise<void> => {
-    if (process.env.GUILD_ID !== member.guild.id || member.user.bot) return;
+class GuildMemberAdd extends Event<typeof EventType> {
+    constructor (client: Event<typeof EventType>["client"]) {
+        super(client);
 
-    const channel = (await member.guild.channels.fetch(config.channels.welcome) as Discord.TextChannel);
+        this.config = {
+            name: EventType,
+            once: false
+        };
 
-    const sEmbed = new Discord.EmbedBuilder()
-        .setColor(config.colors.atlas)
-        .setAuthor({
-            name: `AtlasMC`,
-            iconURL: member.guild.iconURL() as string,
-            url: `https://atlasmc.org`
-        })
-        .setThumbnail(member.user.avatarURL())
-        .setTitle(`Welcome, ${member.user.username}!`)
-        .setDescription(`Welcome to AtlasMC, <@${member.user.id}>!\nWe are so happy to have you here!\n\nCheck out <#780365121716879367> for rules + information about our server!\nGo to <#784302059636785191> to select what you would like to be notified for.\nCommunicate and stay in touch with the community in <#977028662706716722>.\n\n**IP:** play.atlasmc.org\n**STORE:** [store.atlasmc.org](https://store.atlasmc.org)\n**WEBSITE:** [atlasmc.org](https://atlasmc.org)`)
-        .setTimestamp()
-        .setFooter({ text: config.footer });
+        this.run = async member => {
+            if (!this.client.config.modules.logging.enabled) return;
 
-    await channel.send({ embeds: [sEmbed] });
-};
+            const logEmbed = new EmbedBuilder()
+                .setDescription([
+                    `<@${member.id}> joined the server.`,
+                    `There are now **${member.guild.memberCount}** members.`,
+                    "",
+                    `Account Created: ${timestamp(member.user.createdAt)}`
+                ].join("\n"))
+                .setThumbnail(member.displayAvatarURL())
+                .setTimestamp()
+                .setFooter({ text: `ID: ${member.id}` });
+
+            const logChannel = await member.guild.channels.fetch(this.client.config.modules.logging.channels.modLog);
+            if (logChannel?.isSendable()) await logChannel.send({ embeds: [logEmbed] });
+        };
+    }
+}
+
+export default GuildMemberAdd;

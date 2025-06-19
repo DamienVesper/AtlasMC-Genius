@@ -1,8 +1,17 @@
 # Node modules
 node_modules/
 
-# TypeScript build
-dist/
-
 # Environment variables
 .env
+
+# Build files
+dist/
+drizzle/
+
+# Magmastream
+magmastream/
+lavalink.yml
+
+# Logs
+logs/
+*.log

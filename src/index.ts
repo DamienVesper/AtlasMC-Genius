@@ -1,43 +1,34 @@
-import Discord, { GatewayIntentBits, Partials } from 'discord.js';
-
-import { Client } from './typings/discord';
-import * as loader from './modules/loader';
-
-import log from './utils/log';
-import * as logExtra from './utils/logExtra';
-import deployCommands from './utils/deployCommands';
-
-import * as dotenv from 'dotenv';
-dotenv.config();
-
-const client: Client = new Discord.Client({
-    intents: [
-        GatewayIntentBits.GuildMembers,
-        GatewayIntentBits.Guilds
-    ],
-    partials: [
-        Partials.Channel
-    ]
-});
-
-/**
- * Start up the bot.
+/*
+ * Atlas Reunion Discord Bot
+ * Copyright (C) 2025 Damien Vesper
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
  */
+
+import { resolve } from "path";
+import { fileURLToPath } from "url";
+
+import { DiscordBot } from "./modules/DiscordBot.js";
+
 const main = async (): Promise<void> => {
-    console.clear();
-    logExtra.logSplash();
+    const client = new DiscordBot();
 
-    await loader.loadCommands(client);
-    await loader.loadEvents(client);
+    await client.loadEvents(resolve(fileURLToPath(import.meta.url), "../events"));
+    await client.loadCommands(resolve(fileURLToPath(import.meta.url), "../commands"));
 
-    if (process.env.NODE_ENV === `development`) {
-        logExtra.logHeader();
-        await deployCommands(client);
-    }
-
-    logExtra.logHeader();
-    await client.login(process.env.DISCORD_TOKEN).catch(() => log(`red`, `Failed to authenticate client with application.`));
+    await client.login(process.env.DISCORD_TOKEN);
 };
 
-// Start the program.
 void main();
