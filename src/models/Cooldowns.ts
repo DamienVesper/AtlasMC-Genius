@@ -21,7 +21,6 @@
 import { pgTable } from "drizzle-orm/pg-core";
 
 import { Guild } from "./Guild.js";
-import { User } from "./User.js";
 
 /**
  * This exists as a separate table rather than being
@@ -34,7 +33,7 @@ import { User } from "./User.js";
  */
 export const Cooldowns = pgTable("cooldowns", t => ({
     id: t.serial().primaryKey(),
-    discordId: t.text().notNull().references(() => User.discordId),
+    discordId: t.text().notNull(),
     guildId: t.text().notNull().references(() => Guild.discordId),
     xp: t.timestamp({ withTimezone: true }).notNull().default(new Date(0))
 }));
