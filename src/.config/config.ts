@@ -2,7 +2,7 @@ import colors from "./colors.js";
 import customData from "./customData.js";
 import emojis from "./emojis.js";
 
-import type { ClientEvents, Snowflake } from "discord.js";
+import type { Snowflake } from "discord.js";
 import type { ManagerOptions } from "magmastream";
 
 import yargs from "yargs";
@@ -34,7 +34,11 @@ export const config = {
             enabled: false
         },
         logging: {
-            enabled: false
+            enabled: true,
+            channels: {
+                modLog: "1385760852677759027",
+                punishmentLog: "1385761276197601447"
+            }
         },
         leveling: {
             enabled: true,
@@ -166,8 +170,6 @@ interface LoggingModule {
         modLog: Snowflake
         punishmentLog: Snowflake
     }
-
-    events: Array<keyof ClientEvents>
 }
 
 interface LevelingModule {
