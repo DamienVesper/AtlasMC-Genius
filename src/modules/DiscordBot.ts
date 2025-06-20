@@ -138,10 +138,6 @@ export class DiscordBot extends Client<true> {
             idleTimeoutMillis: 3e4
         });
 
-        pool.on("connect", () => {
-            this.logger.info("PostgreSQL", "Connected to database.");
-        });
-
         pool.on("error", err => {
             this.logger.error("PostgreSQL", err.stack ?? err.message);
         });
