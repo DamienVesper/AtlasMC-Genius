@@ -15,7 +15,7 @@ class View extends Subcommand {
     cmd = new SlashCommandSubcommandBuilder()
         .setName("view")
         .setDescription("View a mod case.")
-        .addNumberOption(option => option.setName("id").setDescription("The case number.").setRequired(true));
+        .addIntegerOption(option => option.setName("id").setDescription("The case number.").setRequired(true));
 
     config = {
         parent: "case",
@@ -27,7 +27,7 @@ class View extends Subcommand {
     run = async (interaction: ChatInputCommandInteraction): Promise<void> => {
         if (!interaction.inCachedGuild()) return;
 
-        const id = interaction.options.getNumber("id", true);
+        const id = interaction.options.getInteger("id", true);
         await interaction.deferReply();
 
         const cases = await this.client.db.select({

@@ -13,7 +13,7 @@ class Edit extends Subcommand {
     cmd = new SlashCommandSubcommandBuilder()
         .setName("edit")
         .setDescription("Edit the reason of a case.")
-        .addNumberOption(option => option.setName("id").setDescription("The case number.").setRequired(true))
+        .addIntegerOption(option => option.setName("id").setDescription("The case number.").setRequired(true))
         .addStringOption(option => option.setName("reason").setDescription("The new reason.").setRequired(true));
 
     config = {
@@ -28,7 +28,7 @@ class Edit extends Subcommand {
     run = async (interaction: ChatInputCommandInteraction): Promise<void> => {
         if (!interaction.inCachedGuild()) return;
 
-        const id = interaction.options.getNumber("id", true);
+        const id = interaction.options.getInteger("id", true);
         const reason = interaction.options.getString("reason", true);
 
         await interaction.deferReply();
