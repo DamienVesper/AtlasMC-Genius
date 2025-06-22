@@ -51,7 +51,7 @@ class Purge extends Command {
     run = async (interaction: ChatInputCommandInteraction): Promise<void> => {
         if (!interaction.inCachedGuild() || !interaction.channel?.isTextBased()) return;
 
-        const amount = interaction.options.getNumber("amount", true);
+        const amount = interaction.options.getInteger("amount", true);
         const target = interaction.options.getUser("user", true);
         const reason = interaction.options.getString("reason") ?? "No reason provided";
 
