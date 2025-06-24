@@ -37,7 +37,7 @@ export const config = {
             enabled: true,
             channels: {
                 modLog: "1385760852677759027",
-                punishmentLog: "1385761276197601447"
+                punishmentLog: "1387177029736333344"
             }
         },
         leveling: {
